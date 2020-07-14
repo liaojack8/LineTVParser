@@ -1,4 +1,8 @@
 # LineTVParser
+## Changelog
+2020-07-15
+* Build this repo, and fix the problem that can't download HD video.
+
 ## First Use (Build Environment)
 `pip install -r requirements.txt`
 ## How To Use
