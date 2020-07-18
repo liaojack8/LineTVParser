@@ -4,6 +4,7 @@ from tqdm import tqdm
 import zipfile
 import json
 import requests
+import vtt2srt as V2S
 forceHD = True
 currentPath = ''
 def init():
@@ -72,13 +73,15 @@ def getSubtitle(subtitleLink, path):
 			pbar.update(len(chunk))
 		pbar.close()
 	f.close()
+	V2S.vtt_to_srt(path)
+	os.remove(path)
 
 def getToken(ary):
 	queryjson = {
 	'keyType':ary[2],
 	'keyId':ary[3],
 	'dramaId':ary[0][0],
-	'eps':ary[0][1]
+	'eps':ary[0][1] 
 	}
 	r = requests.post("https://www.linetv.tw/api/part/dinosaurKeeper", json = queryjson)
 	resJson = json.loads(r.content.decode())
