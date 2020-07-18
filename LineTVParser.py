@@ -74,7 +74,6 @@ def getSubtitle(subtitleLink, path):
 		pbar.close()
 	f.close()
 	V2S.vtt_to_srt(path)
-	os.remove(path)
 
 def getToken(ary):
 	queryjson = {

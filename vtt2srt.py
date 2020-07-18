@@ -23,7 +23,7 @@ def convert_content(file_contents):
 
 def file_create(str_name_file, str_data):
     try:
-        f = open(str_name_file, "w")
+        f = open(str_name_file, "w", encoding='UTF-8')
         f.writelines(str(str_data))
         f.close()
     except IOError:
@@ -33,7 +33,7 @@ def file_create(str_name_file, str_data):
         f.close()
 
 def read_text_file(str_name_file):
-    f = open(str_name_file, mode="r")
+    f = open(str_name_file, mode="r", encoding='UTF-8')
     return f.read()
 
 def vtt_to_srt(str_name_file):
