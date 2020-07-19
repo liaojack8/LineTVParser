@@ -53,7 +53,7 @@ def getInfo(ary):
 	dramaName = resJson['dramaInfo']["name"]
 	print('[DramaInfo:]',dramaName+' EP'+ary[1]+' '+str(resJson['dramaInfo']["year"]))
 	if resJson["epsInfo"]["source"][0]["links"][0]["subtitle"] != None:
-		getSubtitle(resJson["epsInfo"]["source"][0]["links"][0]["subtitle"], './download/'+resJson['dramaInfo']["name"]+'_EP'+str(resJson['dramaInfo']["eps"])+'.srt')
+		getSubtitle(resJson["epsInfo"]["source"][0]["links"][0]["subtitle"], './download/'+resJson['dramaInfo']["name"]+'_EP'+str(ary[1])+'.srt')
 	m3u8Url, keyType, keyId = resJson["epsInfo"]["source"][0]["links"][0]["link"], resJson["epsInfo"]["source"][0]["links"][0]["keyType"], resJson["epsInfo"]["source"][0]["links"][0]["keyId"]
 	return [ary, m3u8Url, keyType, keyId, dramaName]
 
