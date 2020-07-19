@@ -1,4 +1,10 @@
 # LineTVParser
+## Changelog
+### 2020-07-18
+* Add a func to convert subtilte file from vtt to srt automatically after download.
+### 2020-07-15
+* Build this repo, and fix the problem that can't download HD video.
+
 ## First Use (Build Environment)
 `pip install -r requirements.txt`
 ## How To Use
