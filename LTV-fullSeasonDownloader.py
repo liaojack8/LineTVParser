@@ -5,8 +5,8 @@ forceHD = True
 currentPath = ''
 
 def welcome():
-	dramaID = input("Drama ID: ")
-	return dramaID
+    dramaID = input("Drama ID: ")
+    return dramaID
 
 def getEps(dID):
     r = requests.get("https://www.linetv.tw/api/part/"+dID+"/eps/1/part")
@@ -15,14 +15,17 @@ def getEps(dID):
     return SeasonEps
 
 def getInfo(ary):
-	r = requests.get("https://www.linetv.tw/api/part/"+ary[0]+"/eps/"+ary[1]+"/part")
-	resJson = json.loads(r.content.decode())
-	dramaName = resJson['dramaInfo']["name"]
-	print('[DramaInfo:]',dramaName+' EP'+ary[1]+' '+str(resJson['dramaInfo']["year"]))
-	if resJson["epsInfo"]["source"][0]["links"][0]["subtitle"] != None:
-		getSubtitle(resJson["epsInfo"]["source"][0]["links"][0]["subtitle"], './download/'+resJson['dramaInfo']["name"]+'_EP'+str(ary[1])+'.srt')
-	m3u8Url, keyType, keyId = resJson["epsInfo"]["source"][0]["links"][0]["link"], resJson["epsInfo"]["source"][0]["links"][0]["keyType"], resJson["epsInfo"]["source"][0]["links"][0]["keyId"]
-	return [ary, m3u8Url, keyType, keyId, dramaName, resJson["code"]]
+    r = requests.get("https://www.linetv.tw/api/part/"+ary[0]+"/eps/"+ary[1]+"/part")
+    resJson = json.loads(r.content.decode())
+    if resJson["code"] == 4008:
+        return [0,0,0,0,0, resJson["code"]]
+    else:
+        dramaName = resJson['dramaInfo']["name"]
+        print('[DramaInfo:]',dramaName+' EP'+ary[1]+' '+str(resJson['dramaInfo']["year"]))
+        if resJson["epsInfo"]["source"][0]["links"][0]["subtitle"] != None:
+            getSubtitle(resJson["epsInfo"]["source"][0]["links"][0]["subtitle"], './download/'+resJson['dramaInfo']["name"]+'_EP'+str(ary[1])+'.srt')
+        m3u8Url, keyType, keyId = resJson["epsInfo"]["source"][0]["links"][0]["link"], resJson["epsInfo"]["source"][0]["links"][0]["keyType"], resJson["epsInfo"]["source"][0]["links"][0]["keyId"]
+        return [ary, m3u8Url, keyType, keyId, dramaName, resJson["code"]]
 
 if __name__ == '__main__':
     PS.init()
@@ -30,7 +33,7 @@ if __name__ == '__main__':
     eps = getEps(dID)
     for i in range (1,eps+1):
         pramaAry = getInfo([str(dID), str(i)])
-        if pramaAry[5] == '2000':
+        if pramaAry[5] == 2000:
             PS.getFile(PS.getToken(pramaAry))
-        elif pramaAry[5] == '4008':
+        elif pramaAry[5] == 4008:
             print("集數"+str(i)+"尚未開放!")
