@@ -1,5 +1,7 @@
 # LineTVParser
 ## Changelog
+### 2020-09-12
+* Add force 1080p vidoe dl func
 ### 2020-07-18
 * Add a func to convert subtilte file from vtt to srt automatically after download.
 ### 2020-07-15

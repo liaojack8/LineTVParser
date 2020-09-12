@@ -1,4 +1,5 @@
 import os
+import m3u8
 import shutil
 from tqdm import tqdm
 import zipfile
@@ -75,6 +76,17 @@ def getSubtitle(subtitleLink, path):
 	f.close()
 	V2S.vtt_to_srt(path)
 
+def urlParser(uu,flag=False): # flag = force 1080p
+    variant_m3u8 = m3u8.load(uu)
+    # print('Supported resolution of this video:',end='\n')
+    # for i in range(len(variant_m3u8.playlists)):
+    #     print(variant_m3u8.playlists[i].uri.split('/')[0], end='\t')
+    #     print(uu.split('v1')[0]+'v1/'+variant_m3u8.playlists[i].uri)
+    if flag:# force 1080p video
+        return (uu.split('v1')[0]+'v1/'+variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri).replace(variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri.split('/')[0],'1080').replace(variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri.split('/')[0]+'p','1080p')
+    else:# HD
+        return uu.split('v1')[0]+'v1/'+variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri
+
 def getToken(ary):
 	queryjson = {
 	'keyType':ary[2],
@@ -92,6 +104,7 @@ def getFile(ary):
 		url = ary[0][1].replace('SD','HD')
 	else:
 		url = ary[0][1]
+	url = urlParser(url,True)
 	os.system(currentPath + '/bin/youtube-dl.exe --add-header ' + '"' + str(ary[1]) + '" ' + url +' --output ./download/"' + str(ary[0][4]+'_EP'+ary[0][0][1]) + '.mp4"')
 
 init()
