@@ -8,6 +8,7 @@ import requests
 import vtt2srt as V2S
 forceHD = True
 currentPath = ''
+
 def init():
 	global currentPath
 	currentPath = os.getcwd().replace('\\','/')
@@ -104,8 +105,9 @@ def getFile(ary):
 		url = ary[0][1].replace('SD','HD')
 	else:
 		url = ary[0][1]
-	url = urlParser(url,True)
+	url = urlParser(url,False)
 	os.system(currentPath + '/bin/youtube-dl.exe --add-header ' + '"' + str(ary[1]) + '" ' + url +' --output ./download/"' + str(ary[0][4]+'_EP'+ary[0][0][1]) + '.mp4"')
 
-init()
-getFile(getToken((getInfo(welcome()))))
+if __name__ == '__main__':
+	init()
+	getFile(getToken((getInfo(welcome()))))
