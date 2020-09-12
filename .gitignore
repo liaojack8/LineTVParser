@@ -1,2 +1,3 @@
 /bin/*
 /download/*
+__pycache__
