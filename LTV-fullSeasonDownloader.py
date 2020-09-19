@@ -17,7 +17,7 @@ def getEps(dID):
 def getInfo(ary):
     r = requests.get("https://www.linetv.tw/api/part/"+ary[0]+"/eps/"+ary[1]+"/part")
     resJson = json.loads(r.content.decode())
-    if resJson["code"] == 4008:
+    if resJson["code"] != 2000:
         return [0,0,0,0,0, resJson["code"]]
     else:
         dramaName = resJson['dramaInfo']["name"]
@@ -37,3 +37,5 @@ if __name__ == '__main__':
             PS.getFile(PS.getToken(pramaAry))
         elif pramaAry[5] == 4008:
             print("集數"+str(i)+"尚未開放!")
+        elif pramaAry[5] == 4004:
+            print("集數"+str(i)+"需要VIP!")
