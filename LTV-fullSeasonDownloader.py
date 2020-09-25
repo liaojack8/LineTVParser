@@ -34,6 +34,7 @@ if __name__ == '__main__':
     for i in range (1,eps+1):
         pramaAry = getInfo([str(dID), str(i)])
         if pramaAry[5] == 2000:
+            print('[開始下載]_',i)
             PS.getFile(PS.getToken(pramaAry))
         elif pramaAry[5] == 4008:
             print("集數"+str(i)+"尚未開放!")
