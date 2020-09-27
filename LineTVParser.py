@@ -83,16 +83,13 @@ def urlParser(uu,flag=False): # flag = force 1080p
     # for i in range(len(variant_m3u8.playlists)):
     #     print(variant_m3u8.playlists[i].uri.split('/')[0], end='\t')
     #     print(uu.split('v1')[0]+'v1/'+variant_m3u8.playlists[i].uri)
+    Vnum = uu.split('/')[5]
     if flag:# force 1080p video
-        if uu.split('/')[5] == 'v1':
-            return (uu.split('v1')[0]+'v1/'+variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri).replace(variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri.split('/')[0],'1080').replace(variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri.split('/')[0]+'p','1080p')
-        if uu.split('/')[5] == 'v2':
-            return (uu.split('v2')[0]+'v2/'+variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri).replace(variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri.split('/')[0],'1080').replace(variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri.split('/')[0]+'p','1080p')
+        if len(uu.split('/')) == 7:
+            return (uu.split(Vnum)[0]+Vnum+'/'+variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri).replace(variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri.split('/')[0],'1080').replace(variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri.split('/')[0]+'p','1080p')
     else:# HD
-        if uu.split('/')[5] == 'v1':
-            return uu.split('v1')[0]+'v1/'+variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri
-        if uu.split('/')[5] == 'v2':
-            return uu.split('v2')[0]+'v2/'+variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri
+        if len(uu.split('/')) == 7:
+            return uu.split(Vnum)[0]+Vnum+'/'+variant_m3u8.playlists[len(variant_m3u8.playlists)-1].uri
 
 def getToken(ary):
 	queryjson = {
