@@ -21,13 +21,15 @@ def init():
 		dlFile('https://yt-dl.org/downloads/latest/youtube-dl.exe', './bin/youtube-dl.exe')
 	if not os.path.isfile('./bin/ffmpeg.exe'):
 		print('[SysInfo:]ffmpeg not found!\nDownloading...')
-		dlFile('https://ffmpeg.zeranoe.com/builds/win32/static/ffmpeg-latest-win32-static.zip', './bin/ffmpeg-latest-win32-static.zip')
-		print('Unziping...')
-		with zipfile.ZipFile('./bin/ffmpeg-latest-win32-static.zip', 'r') as zip_ref:
-			zip_ref.extractall('./bin')
-		os.remove('./bin/ffmpeg-latest-win32-static.zip')
-		shutil.move('./bin/ffmpeg-latest-win32-static/bin/ffmpeg.exe', "./bin/ffmpeg.exe")
-		shutil.rmtree('./bin/ffmpeg-latest-win32-static')
+		#dlFile('https://ffmpeg.zeranoe.com/builds/win32/static/ffmpeg-latest-win32-static.zip', './bin/ffmpeg-latest-win32-static.zip')
+		r = requests.get('https://api.github.com/repos/marierose147/ffmpeg_windows_exe_with_fdk_aac/releases/latest')
+		dlFile(json.loads(r.content.decode())['assets'][2]['browser_download_url'], './bin/ffmpeg.exe')
+		# print('Unziping...')
+		# with zipfile.ZipFile('./bin/ffmpeg-latest-win32-static.zip', 'r') as zip_ref:
+		# 	zip_ref.extractall('./bin')
+		# os.remove('./bin/ffmpeg-latest-win32-static.zip')
+		# shutil.move('./bin/ffmpeg-latest-win32-static/bin/ffmpeg.exe', "./bin/ffmpeg.exe")
+		# shutil.rmtree('./bin/ffmpeg-latest-win32-static')
 
 def dlFile(url, path):
 	r = requests.get(url, stream=True)

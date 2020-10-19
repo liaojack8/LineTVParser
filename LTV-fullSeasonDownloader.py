@@ -1,5 +1,6 @@
 import requests
 import json
+import m3u8
 import LineTVParser as PS
 forceHD = True
 currentPath = ''
