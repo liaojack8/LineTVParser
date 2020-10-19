@@ -10,7 +10,7 @@ def welcome():
     return dramaID
 
 def getEps(dID):
-    r = requests.get("https://www.linetv.tw/api/part/"+dID+"/eps/1/part")
+    r = requests.get("https://www.linetv.tw/api/part/"+str(dID)+"/eps/1/part")
     resJson = json.loads(r.content.decode())
     SeasonEps = resJson['dramaInfo']["eps"]
     return SeasonEps
@@ -24,7 +24,7 @@ def getInfo(ary):
         dramaName = resJson['dramaInfo']["name"]
         print('[DramaInfo:]',dramaName+' EP'+ary[1]+' '+str(resJson['dramaInfo']["year"]))
         if resJson["epsInfo"]["source"][0]["links"][0]["subtitle"] != None:
-            getSubtitle(resJson["epsInfo"]["source"][0]["links"][0]["subtitle"], './download/'+resJson['dramaInfo']["name"]+'_EP'+str(ary[1])+'.srt')
+            PS.getSubtitle(resJson["epsInfo"]["source"][0]["links"][0]["subtitle"], './download/'+resJson['dramaInfo']["name"]+'_EP'+str(ary[1])+'.srt')
         m3u8Url, keyType, keyId = resJson["epsInfo"]["source"][0]["links"][0]["link"], resJson["epsInfo"]["source"][0]["links"][0]["keyType"], resJson["epsInfo"]["source"][0]["links"][0]["keyId"]
         return [ary, m3u8Url, keyType, keyId, dramaName, resJson["code"]]
 
